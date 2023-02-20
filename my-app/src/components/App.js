@@ -7,6 +7,7 @@ import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateProfile from "./UpdateProfile";
+import SignUpForm from "./SignUpForm";
 import MainPage from "../MainPage/MainPage";
 import RouteWrapper from "./RouteWrapper";
 
@@ -41,6 +42,14 @@ function App() {
             element={
               <RouteWrapper>
                 <SignUp />
+              </RouteWrapper>
+            }
+          />
+          <Route
+            path="/signupform"
+            element={
+              <RouteWrapper>
+                <SignUpForm />
               </RouteWrapper>
             }
           />
