@@ -1,19 +1,39 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
+
+  const handleClientSignUp = () => {
+    // Navigate to the client sign-up page
+    navigate("/signup/client");
+  };
+
+  const handleFreelancerSignUp = () => {
+    // Navigate to the freelancer sign-up page
+    navigate("/signup/freelancer");
+  };
+
   return (
     <Container className="my-5 square border p-5">
       <h2 className="text-center mb-4">Join as a client or freelancer</h2>
       <Row className="flex-row align-items-center justify-content-center">
         <Col xs={12} sm={6} className="mb-3">
-          <Button variant="primary" className="w-100">
+          <Button
+            variant="primary"
+            className="w-100"
+            onClick={handleClientSignUp}
+          >
             Client
           </Button>
         </Col>
         <Col xs={12} sm={6} className="mb-3">
-          <Button variant="secondary" className="w-100">
+          <Button
+            variant="secondary"
+            className="w-100"
+            onClick={handleFreelancerSignUp}
+          >
             Freelancer
           </Button>
         </Col>

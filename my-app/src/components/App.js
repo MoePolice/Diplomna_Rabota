@@ -46,6 +46,23 @@ function App() {
             }
           />
           <Route
+            path="/signup/client"
+            element={
+              <RouteWrapper>
+                <SignUpForm userType="client" />
+              </RouteWrapper>
+            }
+          />
+          <Route
+            path="/signup/freelancer"
+            element={
+              <RouteWrapper>
+                <SignUpForm userType="freelancer" />
+              </RouteWrapper>
+            }
+          />
+
+          <Route
             path="/signupform"
             element={
               <RouteWrapper>
