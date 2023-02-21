@@ -27,4 +27,4 @@ const createUserWithEmailAndPassword = (email, password) => {
 
 const auth = app.auth();
 
-export { auth, createUserWithEmailAndPassword };
+export { firebase, auth, createUserWithEmailAndPassword };
