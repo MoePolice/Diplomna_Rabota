@@ -1,43 +1,26 @@
 import React from "react";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const SignUpForm = () => {
   return (
-    <Container
-      className="my-5"
-      style={{ border: "1px solid black", width: "200%", height: "100%" }}
-    >
-      <Row className="justify-content-center">
-        <Col md={6}>
-          <h2 className="text-center mb-4">Join as a client or freelancer</h2>
-          <Row className="justify-content-center">
-            <Col xs={12} md={6}>
-              <Button variant="primary" block>
-                Client
-              </Button>
-            </Col>
-            <Col xs={12} md={6}>
-              <Button variant="secondary" block>
-                Freelancer
-              </Button>
-            </Col>
-          </Row>
+    <Container className="my-5 square border p-5">
+      <h2 className="text-center mb-4">Join as a client or freelancer</h2>
+      <Row className="flex-row align-items-center justify-content-center">
+        <Col xs={12} sm={6} className="mb-3">
+          <Button variant="primary" className="w-100">
+            Client
+          </Button>
         </Col>
-      </Row>
-
-      <Row className="justify-content-center mt-3">
-        <Col md={6}>
-          <Button variant="success" block>
-            Create Account
+        <Col xs={12} sm={6} className="mb-3">
+          <Button variant="secondary" className="w-100">
+            Freelancer
           </Button>
         </Col>
       </Row>
-      <Row className="justify-content-center mt-3">
-        <Col md={6}>
-          <p className="text-center">Already have an account?</p>
-          <p className="text-center">Log In</p>
-        </Col>
-      </Row>
+      <div className="w-100 text-center mt-2">
+        Already have an account? <Link to="/login">Log In</Link>
+      </div>
     </Container>
   );
 };
