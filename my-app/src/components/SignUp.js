@@ -32,6 +32,39 @@ export default function SignUp() {
     setLoading(false);
   }
 
+  function handleClientSignup() {
+    setLoading(true);
+    setError("");
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return setError("Passwords do not match");
+    }
+    signup(emailRef.current.value, passwordRef.current.value)
+      .then((userCredential) => {
+        const uid = userCredential.user.uid;
+        const email = userCredential.user.email;
+        firebase
+          .firestore()
+          .collection("clients")
+          .doc(uid)
+          .set({
+            email: email,
+          })
+          .then(() => {
+            navigate("/dashboard");
+          })
+          .catch((error) => {
+            setError(error.message);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      })
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+      });
+  }
+
   return (
     <>
       <Card>
