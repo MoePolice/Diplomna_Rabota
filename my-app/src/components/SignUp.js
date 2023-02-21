@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Form, Button, Card, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { firebase } from "../firebase";
 
 export default function SignUp() {
@@ -12,6 +13,9 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const { state } = useLocation();
+  const isClient = state && state.isClient;
 
   async function handleSubmit(e) {
     e.preventDefault();

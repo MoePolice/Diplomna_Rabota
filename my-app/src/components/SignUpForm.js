@@ -6,13 +6,11 @@ const SignUpForm = () => {
   const navigate = useNavigate();
 
   const handleClientSignUp = () => {
-    // Navigate to the client sign-up page
-    navigate("/signup/client");
+    navigate("/signup", { state: { isClient: true } });
   };
 
   const handleFreelancerSignUp = () => {
-    // Navigate to the freelancer sign-up page
-    navigate("/signup/freelancer");
+    navigate("/signup", { state: { isClient: false } });
   };
 
   return (
