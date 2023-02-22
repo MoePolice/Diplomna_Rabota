@@ -13,6 +13,7 @@ import {
 import "./MainPage.css";
 import Footer from "./Footer";
 import logo from "../img/Logo.jpg";
+import CreateGigForm from "../components/CreateGigForm";
 
 function MainPage() {
   return (
@@ -48,9 +49,9 @@ function MainPage() {
           <Col md={12}>
             <h1 className="text-center">Welcome to Freelance Webpage</h1>
             <p className="text-center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              auctor, massa id consectetur iaculis, quam nulla auctor diam, vel
-              placerat lacus ipsum id odio.
+              Need help with a project or looking for work? Look no further than
+              Freelance Webpage. Our platform connects talented freelancers with
+              people like you who need their expertise.
             </p>
           </Col>
         </Row>
@@ -60,25 +61,25 @@ function MainPage() {
           <Col md={4}>
             <h3 className="text-center">Services</h3>
             <p className="text-center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              auctor, massa id consectetur iaculis, quam nulla auctor diam, vel
-              placerat lacus ipsum id odio.
+              Find the right freelancer for any job, big or small, with
+              Freelance Webpage. Our platform offers a wide variety of services,
+              from web design to content creation and everything in between.
             </p>
           </Col>
           <Col md={4}>
             <h3 className="text-center">Portfolio</h3>
             <p className="text-center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              auctor, massa id consectetur iaculis, quam nulla auctor diam, vel
-              placerat lacus ipsum id odio.
+              Want to see the work of our talented freelancers? Check out our
+              portfolio section to browse through examples of completed projects
+              and find inspiration for your own.
             </p>
           </Col>
           <Col md={4}>
             <h3 className="text-center">About</h3>
             <p className="text-center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              auctor, massa id consectetur iaculis, quam nulla auctor diam, vel
-              placerat lacus ipsum id odio.
+              Learn more about Freelance Webpage and the team behind it. Our
+              mission is to make it easy for freelancers and clients to find
+              each other and work together in a seamless and enjoyable way.
             </p>
           </Col>
         </Row>
@@ -88,9 +89,9 @@ function MainPage() {
           <Col md={12}>
             <h2 className="text-center">Contact Us</h2>
             <p className="text-center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              auctor, massa id consectetur iaculis, quam nulla auctor diam, vel
-              placerat lacus ipsum id odio.
+              Have questions or feedback? We're always here to help. Get in
+              touch with us through our contact form and we'll get back to you
+              as soon as possible.
             </p>
             <Form>
               <Form.Group controlId="formBasicEmail">
@@ -111,6 +112,7 @@ function MainPage() {
           </Col>
         </Row>
       </Container>
+      <CreateGigForm />
       <Footer />
     </>
   );
