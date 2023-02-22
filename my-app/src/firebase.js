@@ -30,7 +30,7 @@ const createUserWithEmailAndPassword = (email, password) => {
 
 const auth = app.auth();
 
-export { firebase, auth, createUserWithEmailAndPassword };
+export { firebase, firestore, auth, createUserWithEmailAndPassword };
 
 export const signIn = (email, password) => {
   return firebase.auth().signInWithEmailAndPassword(email, password);
@@ -43,4 +43,21 @@ export const createUserProfile = (uid, email, name, role) => {
     name: name,
     role: role,
   });
+};
+
+export const createGig = async (name, price, deadline, uid) => {
+  try {
+    const gigRef = firestore.collection("gigs").doc();
+    await gigRef.set({
+      name,
+      price,
+      deadline,
+      uid,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    return gigRef.id;
+  } catch (error) {
+    console.log("Error creating gig: ", error.message);
+    throw new Error("Error creating gig");
+  }
 };
