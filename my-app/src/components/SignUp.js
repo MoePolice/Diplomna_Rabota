@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { firebase } from "../firebase";
+import { createUserWithEmailAndPassword, createUserProfile } from "../firebase";
 
 export default function SignUp() {
   const emailRef = useRef();
@@ -35,6 +36,21 @@ export default function SignUp() {
 
     setLoading(false);
   }
+
+  const handleSignUp = (email, password, name, role) => {
+    createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // Create user profile
+        createUserProfile(user.uid, email, name, role);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
+  };
 
   function handleClientSignup() {
     setLoading(true);
