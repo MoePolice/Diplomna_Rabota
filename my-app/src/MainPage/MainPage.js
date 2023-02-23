@@ -39,7 +39,7 @@ function MainPage() {
             </Form>
             <Nav className="d-flex justify-content-end">
               <Nav.Link href="login">Log In</Nav.Link>
-              <Nav.Link href="signup">Sign Up</Nav.Link>
+              <Nav.Link href="signupform">Sign Up</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
