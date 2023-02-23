@@ -13,9 +13,26 @@ import {
 import "./MainPage.css";
 import Footer from "./Footer";
 import logo from "../img/Logo.jpg";
+import { useState, useEffect } from "react";
+import { auth } from "../firebase";
 import CreateGigForm from "../components/CreateGigForm";
 
 function MainPage() {
+  const [userType, setUserType] = useState("");
+
+  useEffect(() => {
+    const currentUser = auth.currentUser;
+    if (currentUser) {
+      currentUser.getIdTokenResult().then((idTokenResult) => {
+        if (idTokenResult.claims.type === "client") {
+          setUserType("client");
+        } else if (idTokenResult.claims.type === "freelancer") {
+          setUserType("freelancer");
+        }
+      });
+    }
+  }, []);
+
   return (
     <>
       <Navbar bg="light" expand="lg">

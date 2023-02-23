@@ -28,7 +28,13 @@ export default function SignUp() {
     try {
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
+
+      if (isClient) {
+        await handleClientSignup();
+      } else {
+        await handleFreelancerSignup();
+      }
+
       navigate("/");
     } catch {
       setError("Failed to create an account");
@@ -37,85 +43,65 @@ export default function SignUp() {
     setLoading(false);
   }
 
-  const handleSignUp = (email, password, name, role) => {
-    createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // Create user profile
-        createUserProfile(user.uid, email, name, role);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-  };
+  // const handleSignUp = (email, password, name, role) => {
+  //   createUserWithEmailAndPassword(email, password)
+  //     .then((userCredential) => {
+  //       // Signed in
+  //       const user = userCredential.user;
+  //       // Create user profile
+  //       createUserProfile(user.uid, email, name, role);
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       console.log(errorCode, errorMessage);
+  //     });
+  // };
 
-  function handleClientSignup() {
+  async function handleClientSignup() {
     setLoading(true);
     setError("");
+
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
     }
-    signup(emailRef.current.value, passwordRef.current.value)
-      .then((userCredential) => {
-        const uid = userCredential.user.uid;
-        const email = userCredential.user.email;
-        firebase
-          .firestore()
-          .collection("clients")
-          .doc(uid)
-          .set({
-            email: email,
-          })
-          .then(() => {
-            navigate("/dashboard");
-          })
-          .catch((error) => {
-            setError(error.message);
-          })
-          .finally(() => {
-            setLoading(false);
-          });
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
+
+    try {
+      await signup(emailRef.current.value, passwordRef.current.value);
+      const uid = firebase.auth().currentUser.uid;
+      const email = firebase.auth().currentUser.email;
+      await firebase.firestore().collection("clients").doc(uid).set({
+        email: email,
       });
+      navigate("/dashboard");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  function handleFreelancerSignup() {
+  async function handleFreelancerSignup() {
     setLoading(true);
     setError("");
+
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError("Passwords do not match");
     }
-    signup(emailRef.current.value, passwordRef.current.value)
-      .then((userCredential) => {
-        const uid = userCredential.user.uid;
-        const email = userCredential.user.email;
-        firebase
-          .firestore()
-          .collection("freelancers")
-          .doc(uid)
-          .set({
-            email: email,
-          })
-          .then(() => {
-            navigate("/dashboard");
-          })
-          .catch((error) => {
-            setError(error.message);
-          })
-          .finally(() => {
-            setLoading(false);
-          });
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
+
+    try {
+      await signup(emailRef.current.value, passwordRef.current.value);
+      const uid = firebase.auth().currentUser.uid;
+      const email = firebase.auth().currentUser.email;
+      await firebase.firestore().collection("freelancers").doc(uid).set({
+        email: email,
       });
+      navigate("/dashboard");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (

@@ -37,7 +37,7 @@ export const signIn = (email, password) => {
 };
 
 export const createUserProfile = (uid, email, name, role) => {
-  const userRef = firebase.firestore().collection(role).doc(uid);
+  const userRef = firebase.firestore().collection("users").doc(uid);
   return userRef.set({
     email: email,
     name: name,
