@@ -82,6 +82,7 @@ export default function SignUp() {
   }
 
   async function handleFreelancerSignup() {
+    console.log("handleFreelancerSignup called");
     setLoading(true);
     setError("");
 
@@ -90,12 +91,7 @@ export default function SignUp() {
     }
 
     try {
-      await signup(emailRef.current.value, passwordRef.current.value);
-      const uid = firebase.auth().currentUser.uid;
-      const email = firebase.auth().currentUser.email;
-      await firebase.firestore().collection("freelancers").doc(uid).set({
-        email: email,
-      });
+      await createUser(emailRef.current.value, passwordRef.current.value);
       navigate("/dashboard");
     } catch (error) {
       setError(error.message);
@@ -104,6 +100,18 @@ export default function SignUp() {
     }
   }
 
+  async function createUser(email, password) {
+    const userCredential = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password);
+    await firebase
+      .firestore()
+      .collection("freelancers")
+      .doc(userCredential.user.uid)
+      .set({
+        email: email,
+      });
+  }
   return (
     <>
       <Card>
