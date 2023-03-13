@@ -30,6 +30,16 @@ const createUserWithEmailAndPassword = (email, password) => {
 
 const auth = app.auth();
 
+// Set up the function to retrieve ID tokens from authenticated users
+const getIdToken = async () => {
+  const user = auth.currentUser;
+  if (user) {
+    return user.getIdToken();
+  } else {
+    throw new Error("User not authenticated.");
+  }
+};
+
 export { firebase, firestore, auth, createUserWithEmailAndPassword };
 
 export const signIn = (email, password) => {
