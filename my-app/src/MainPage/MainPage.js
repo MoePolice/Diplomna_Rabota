@@ -16,6 +16,8 @@ import logo from "../img/Logo.jpg";
 import { useState, useEffect } from "react";
 import { auth } from "../firebase";
 import CreateGigForm from "../components/CreateGigForm";
+import LoginStatus from "../components/LoginStatus";
+import Dashboard from "../components/Dashboard";
 
 function MainPage() {
   const [userType, setUserType] = useState("");
@@ -78,9 +80,7 @@ function MainPage() {
                   </Nav.Item>
                 </>
               ) : (
-                <Nav.Item>
-                  <Nav.Link>Logged In</Nav.Link>
-                </Nav.Item>
+                <Dashboard />
               )}
             </Nav>
           </Navbar.Collapse>
