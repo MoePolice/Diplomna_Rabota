@@ -35,6 +35,10 @@ function MainPage() {
     setIsLoading(false);
   }, []);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Navbar bg="light" expand="lg">
