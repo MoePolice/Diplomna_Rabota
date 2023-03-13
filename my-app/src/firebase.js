@@ -60,19 +60,18 @@ export const createUserProfile = async (email, name, role) => {
   );
 };
 
-export const createGig = async (name, price, deadline, uid) => {
-  try {
-    const gigRef = firestore.collection("gigs").doc();
-    await gigRef.set({
+export const createGig = async (name, price, deadline) => {
+  const token = await getIdToken();
+  const gigRef = firestore.collection("gigs").doc();
+  await gigRef.set(
+    {
       name,
       price,
       deadline,
-      uid,
+      uid: auth.currentUser.uid,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    return gigRef.id;
-  } catch (error) {
-    console.log("Error creating gig: ", error.message);
-    throw new Error("Error creating gig");
-  }
+    },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return gigRef.id;
 };
