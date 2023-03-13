@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Card, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import LoginStatus from "./LoginStatus"; // import LoginStatus component
 
 export default function Dashboard() {
   const [error, setError] = useState("");
@@ -21,6 +22,7 @@ export default function Dashboard() {
 
   return (
     <>
+      <LoginStatus />
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Profile</h2>
