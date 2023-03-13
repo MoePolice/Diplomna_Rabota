@@ -158,7 +158,7 @@ function MainPage() {
           </Col>
         </Row>
       </Container>
-      {userType != null && <CreateGigForm />}
+      <CreateGigForm />
       <Footer />
     </>
   );

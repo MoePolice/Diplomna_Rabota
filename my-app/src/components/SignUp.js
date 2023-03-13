@@ -81,7 +81,6 @@ export default function SignUp() {
   }
 
   async function handleFreelancerSignup() {
-    console.log("handleFreelancerSignup called");
     setLoading(true);
     setError("");
 
