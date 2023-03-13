@@ -22,17 +22,23 @@ function MainPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const currentUser = auth.currentUser;
-    if (currentUser) {
-      currentUser.getIdTokenResult().then((idTokenResult) => {
-        if (idTokenResult.claims.type === "client") {
-          setUserType("client");
-        } else if (idTokenResult.claims.type === "freelancer") {
-          setUserType("freelancer");
-        }
-      });
-    }
-    setIsLoading(false);
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        user.getIdTokenResult().then((idTokenResult) => {
+          if (idTokenResult.claims.type === "client") {
+            setUserType("client");
+          } else if (idTokenResult.claims.type === "freelancer") {
+            setUserType("freelancer");
+          }
+        });
+      } else {
+        setUserType(null);
+      }
+      setIsLoading(false);
+    });
+
+    // Cleanup subscription on unmount
+    return unsubscribe;
   }, []);
 
   if (isLoading) {
