@@ -26,12 +26,14 @@ function MainPage() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       console.log("user: ", user);
+
       if (user) {
         user.getIdTokenResult().then((idTokenResult) => {
           console.log("idTokenResult: ", idTokenResult);
-          if (idTokenResult.claims.type === "client") {
+          console.log(idTokenResult.claims);
+          if (idTokenResult.claims.userType === "client") {
             setUserType("client");
-          } else if (idTokenResult.claims.type === "freelancer") {
+          } else if (idTokenResult.claims.userType === "freelancer") {
             setUserType("freelancer");
           }
         });
@@ -42,7 +44,9 @@ function MainPage() {
     });
 
     return unsubscribe;
-  }, []);
+  }, [auth]);
+
+  console.log("userType:", userType);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -154,7 +158,7 @@ function MainPage() {
           </Col>
         </Row>
       </Container>
-      <CreateGigForm />
+      {userType != null && <CreateGigForm />}
       <Footer />
     </>
   );

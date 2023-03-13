@@ -90,7 +90,12 @@ export default function SignUp() {
     }
 
     try {
-      await createUser(emailRef.current.value, passwordRef.current.value);
+      await createUser(
+        emailRef.current.value,
+        passwordRef.current.value,
+        "freelancer"
+      );
+
       navigate("/dashboard");
     } catch (error) {
       setError(error.message);
@@ -104,7 +109,10 @@ export default function SignUp() {
       .auth()
       .createUserWithEmailAndPassword(email, password);
     const uid = userCredential.user.uid;
-    const userData = { email: email };
+    const userData = {
+      email: email,
+      userType: userType,
+    };
 
     if (userType === "client") {
       await firebase.firestore().collection("clients").doc(uid).set(userData);

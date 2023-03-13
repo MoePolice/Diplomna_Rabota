@@ -25,21 +25,22 @@ const auth = app.auth();
 const getIdToken = async () => {
   const user = auth.currentUser;
   if (user) {
-    return user.getIdToken();
+    const idTokenResult = await user.getIdTokenResult();
+    return idTokenResult.token;
   } else {
     throw new Error("User not authenticated.");
   }
 };
 
 // Export the functions that need to use ID tokens
-export const createUserProfile = async (email, name, role) => {
+export const createUserProfile = async (email, name, userType) => {
   const token = await getIdToken();
   const userRef = firestore.collection("users").doc(auth.currentUser.uid);
   await userRef.set(
     {
       email: email,
       name: name,
-      role: role,
+      userType: userType,
     },
     { merge: true, headers: { Authorization: `Bearer ${token}` } }
   );
