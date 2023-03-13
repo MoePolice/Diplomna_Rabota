@@ -23,8 +23,10 @@ function MainPage() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
+      console.log("user: ", user);
       if (user) {
         user.getIdTokenResult().then((idTokenResult) => {
+          console.log("idTokenResult: ", idTokenResult);
           if (idTokenResult.claims.type === "client") {
             setUserType("client");
           } else if (idTokenResult.claims.type === "freelancer") {
@@ -66,11 +68,7 @@ function MainPage() {
               </Button>
             </Form>
             <Nav className="d-flex justify-content-end">
-              {userType ? (
-                <Nav.Item>
-                  <Nav.Link>Logged In</Nav.Link>
-                </Nav.Item>
-              ) : (
+              {userType === null ? (
                 <>
                   <Nav.Item>
                     <Nav.Link href="login">Log In</Nav.Link>
@@ -79,6 +77,10 @@ function MainPage() {
                     <Nav.Link href="signupform">Sign Up</Nav.Link>
                   </Nav.Item>
                 </>
+              ) : (
+                <Nav.Item>
+                  <Nav.Link>Logged In</Nav.Link>
+                </Nav.Item>
               )}
             </Nav>
           </Navbar.Collapse>
