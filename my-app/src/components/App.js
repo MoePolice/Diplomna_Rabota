@@ -10,6 +10,7 @@ import UpdateProfile from "./UpdateProfile";
 import SignUpForm from "./SignUpForm";
 import MainPage from "../MainPage/MainPage";
 import RouteWrapper from "./RouteWrapper";
+import { useState } from "react";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
