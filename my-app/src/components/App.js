@@ -12,6 +12,7 @@ import MainPage from "../MainPage/MainPage";
 import RouteWrapper from "./RouteWrapper";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <Router>
       <AuthProvider>
