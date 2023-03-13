@@ -5,8 +5,6 @@ import firebase from "firebase/app";
 import { firestore } from "./firebase";
 import "firebase/auth";
 import "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -20,14 +18,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-// export const app = initializeApp(firebaseConfig);
-// export const auth = getAuth(app);
-export const app = firebase.initializeApp(firebaseConfig);
-
-const createUserWithEmailAndPassword = (email, password) => {
-  return firebase.auth().createUserWithEmailAndPassword(email, password);
-};
-
+const app = firebase.initializeApp(firebaseConfig);
 const auth = app.auth();
 
 // Set up the function to retrieve ID tokens from authenticated users
@@ -38,12 +29,6 @@ const getIdToken = async () => {
   } else {
     throw new Error("User not authenticated.");
   }
-};
-
-export { firebase, firestore, auth, createUserWithEmailAndPassword };
-
-export const signIn = (email, password) => {
-  return firebase.auth().signInWithEmailAndPassword(email, password);
 };
 
 // Export the functions that need to use ID tokens
@@ -75,3 +60,13 @@ export const createGig = async (name, price, deadline) => {
   );
   return gigRef.id;
 };
+
+export const signIn = (email, password) => {
+  return auth.signInWithEmailAndPassword(email, password);
+};
+
+export const createUserWithEmailAndPassword = (email, password) => {
+  return auth.createUserWithEmailAndPassword(email, password);
+};
+
+export { firebase, firestore, auth };
