@@ -1,30 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+import { useAuth } from "../contexts/AuthContext";
 
-function LoginStatus() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  async function handleLogin() {
-    setIsLoggedIn(true);
-  }
-
-  async function handleLogout() {
-    setIsLoggedIn(false);
-  }
+export default function LoginStatus() {
+  const { currentUser } = useAuth();
 
   return (
-    <div>
-      {isLoggedIn ? (
-        <div>
-          <p>Logged in</p>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
+    <div className="w-100 text-center mt-2">
+      {currentUser ? (
+        <button className="btn btn-primary">Log Out</button>
       ) : (
-        <div>
-          <button onClick={handleLogin}>Login</button>
-        </div>
+        <p>You are not logged in.</p>
       )}
     </div>
   );
 }
-
-export default LoginStatus;

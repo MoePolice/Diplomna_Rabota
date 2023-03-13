@@ -22,7 +22,6 @@ export default function Dashboard() {
 
   return (
     <>
-      <LoginStatus />
       <Card>
         <Card.Body>
           <h2 className="text-center mb-4">Profile</h2>
