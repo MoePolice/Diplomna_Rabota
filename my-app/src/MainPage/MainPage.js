@@ -19,6 +19,7 @@ import CreateGigForm from "../components/CreateGigForm";
 
 function MainPage() {
   const [userType, setUserType] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const currentUser = auth.currentUser;
@@ -54,16 +55,22 @@ function MainPage() {
                 Search
               </Button>
             </Form>
-            {userType ? (
-              <Nav className="d-flex justify-content-end">
-                <Nav.Link href="#">Logged In</Nav.Link>
-              </Nav>
-            ) : (
-              <Nav className="d-flex justify-content-end">
-                <Nav.Link href="login">Log In</Nav.Link>
-                <Nav.Link href="signupform">Sign Up</Nav.Link>
-              </Nav>
-            )}
+            <Nav className="d-flex justify-content-end">
+              {userType ? (
+                <Nav.Item>
+                  <Nav.Link>Logged In</Nav.Link>
+                </Nav.Item>
+              ) : (
+                <>
+                  <Nav.Item>
+                    <Nav.Link href="login">Log In</Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link href="signupform">Sign Up</Nav.Link>
+                  </Nav.Item>
+                </>
+              )}
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
