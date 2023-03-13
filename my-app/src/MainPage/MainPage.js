@@ -54,10 +54,16 @@ function MainPage() {
                 Search
               </Button>
             </Form>
-            <Nav className="d-flex justify-content-end">
-              <Nav.Link href="login">Log In</Nav.Link>
-              <Nav.Link href="signupform">Sign Up</Nav.Link>
-            </Nav>
+            {userType ? (
+              <Nav className="d-flex justify-content-end">
+                <Nav.Link href="#">Logged In</Nav.Link>
+              </Nav>
+            ) : (
+              <Nav className="d-flex justify-content-end">
+                <Nav.Link href="login">Log In</Nav.Link>
+                <Nav.Link href="signupform">Sign Up</Nav.Link>
+              </Nav>
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>
