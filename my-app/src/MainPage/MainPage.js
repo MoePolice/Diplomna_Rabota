@@ -37,7 +37,6 @@ function MainPage() {
       setIsLoading(false);
     });
 
-    // Cleanup subscription on unmount
     return unsubscribe;
   }, []);
 
