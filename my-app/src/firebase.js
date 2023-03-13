@@ -46,13 +46,18 @@ export const signIn = (email, password) => {
   return firebase.auth().signInWithEmailAndPassword(email, password);
 };
 
-export const createUserProfile = (uid, email, name, role) => {
-  const userRef = firebase.firestore().collection("users").doc(uid);
-  return userRef.set({
-    email: email,
-    name: name,
-    role: role,
-  });
+// Export the functions that need to use ID tokens
+export const createUserProfile = async (email, name, role) => {
+  const token = await getIdToken();
+  const userRef = firestore.collection("users").doc(auth.currentUser.uid);
+  await userRef.set(
+    {
+      email: email,
+      name: name,
+      role: role,
+    },
+    { merge: true, headers: { Authorization: `Bearer ${token}` } }
+  );
 };
 
 export const createGig = async (name, price, deadline, uid) => {
