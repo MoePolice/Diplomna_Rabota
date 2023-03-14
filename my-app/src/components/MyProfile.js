@@ -59,3 +59,7 @@ const handleUpdateProfile = async () => {
     console.error("Error updating profile: ", error);
   }
 };
+
+if (isLoading) {
+  return <div>Loading...</div>;
+}
