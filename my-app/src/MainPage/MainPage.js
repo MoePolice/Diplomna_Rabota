@@ -10,6 +10,7 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./MainPage.css";
 import Footer from "./Footer";
 import logo from "../img/Logo.jpg";
@@ -19,6 +20,14 @@ import CreateGigForm from "../components/CreateGigForm";
 import LoginStatus from "../components/LoginStatus";
 import Dashboard from "../components/Dashboard";
 import UserProfile from "../components/UserProfile";
+
+function ProfileButton() {
+  return (
+    <Link to="/user-profile">
+      <Button variant="primary">My Profile</Button>
+    </Link>
+  );
+}
 
 function MainPage() {
   const [userType, setUserType] = useState("");
@@ -86,7 +95,7 @@ function MainPage() {
                 </>
               ) : (
                 <>
-                  <UserProfile />
+                  <ProfileButton />
                   <LoginStatus />
                 </>
               )}

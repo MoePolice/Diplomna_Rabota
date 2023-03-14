@@ -10,6 +10,7 @@ import UpdateProfile from "./UpdateProfile";
 import SignUpForm from "./SignUpForm";
 import MainPage from "../MainPage/MainPage";
 import RouteWrapper from "./RouteWrapper";
+import UserProfile from "./UserProfile";
 import { useState } from "react";
 
 function App() {
@@ -85,6 +86,16 @@ function App() {
             element={
               <RouteWrapper>
                 <ForgotPassword />
+              </RouteWrapper>
+            }
+          />
+          <Route
+            path="/user-profile"
+            element={
+              <RouteWrapper>
+                <PrivateRoute>
+                  <UserProfile />
+                </PrivateRoute>
               </RouteWrapper>
             }
           />

@@ -1,6 +1,6 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { firebase, db } from "../firebase";
+import { Container, Form, Button } from "react-bootstrap";
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -66,19 +66,33 @@ const UserProfile = () => {
   }
 
   return (
-    <div>
+    <Container className="my-3">
       <h2>My Profile</h2>
-      <label htmlFor="displayName">Display Name:</label>
-      <input
-        type="text"
-        id="displayName"
-        value={displayName}
-        onChange={handleDisplayNameChange}
-      />
-      <label htmlFor="bio">Bio:</label>
-      <textarea id="bio" value={bio} onChange={handleBioChange} />
-      <button onClick={handleUpdateProfile}>Update Profile</button>
-    </div>
+      <Form>
+        <Form.Group controlId="formDisplayName">
+          <Form.Label>Display Name:</Form.Label>
+          <Form.Control
+            type="text"
+            value={displayName}
+            onChange={handleDisplayNameChange}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBio">
+          <Form.Label>Bio:</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            value={bio}
+            onChange={handleBioChange}
+          />
+        </Form.Group>
+
+        <Button variant="primary" onClick={handleUpdateProfile}>
+          Update Profile
+        </Button>
+      </Form>
+    </Container>
   );
 };
 
