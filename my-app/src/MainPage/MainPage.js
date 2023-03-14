@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import "./MainPage.css";
 import Footer from "./Footer";
 import logo from "../img/Logo.jpg";
+import { db } from "../firebase";
 import { useState, useEffect } from "react";
 import { auth } from "../firebase";
 import CreateGigForm from "../components/CreateGigForm";
@@ -23,7 +24,7 @@ import UserProfile from "../components/UserProfile";
 
 function ProfileButton() {
   return (
-    <Link to="/user-profile">
+    <Link to="/dashboard">
       <Button variant="primary">My Profile</Button>
     </Link>
   );
@@ -35,18 +36,21 @@ function MainPage() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      // console.log("user: ", user);
-
       if (user) {
-        user.getIdTokenResult().then((idTokenResult) => {
-          // console.log("idTokenResult: ", idTokenResult);
-          // console.log(idTokenResult.claims);
-          if (idTokenResult.claims.userType === "client") {
-            setUserType("client");
-          } else if (idTokenResult.claims.userType === "freelancer") {
-            setUserType("freelancer");
-          }
-        });
+        db.collection("freelancers")
+          .doc(user.uid)
+          .get()
+          .then((doc) => {
+            if (doc.exists && doc.data().userType === "freelancer") {
+              setUserType("freelancer");
+            } else {
+              setUserType("client");
+            }
+          })
+          .catch((error) => {
+            console.log("Error getting document:", error);
+            setUserType(null);
+          });
       } else {
         setUserType(null);
       }
@@ -55,8 +59,6 @@ function MainPage() {
 
     return unsubscribe;
   }, [auth]);
-
-  // console.log("userType:", userType);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -171,7 +173,7 @@ function MainPage() {
           </Col>
         </Row>
       </Container>
-      <CreateGigForm />
+      {userType === "freelancer" && <CreateGigForm />}
       <Footer />
     </>
   );
