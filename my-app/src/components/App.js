@@ -7,7 +7,7 @@ import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateProfile from "./UpdateProfile";
-import SignUpForm from "./ClientOrFreelancer";
+import ClientOrFreelancer from "./ClientOrFreelancer";
 import MainPage from "../MainPage/MainPage";
 import RouteWrapper from "./RouteWrapper";
 import UserProfile from "./UserProfile";
@@ -52,7 +52,7 @@ function App() {
             path="/signup/client"
             element={
               <RouteWrapper>
-                <SignUpForm userType="client" />
+                <ClientOrFreelancer userType="client" />
               </RouteWrapper>
             }
           />
@@ -60,16 +60,16 @@ function App() {
             path="/signup/freelancer"
             element={
               <RouteWrapper>
-                <SignUpForm userType="freelancer" />
+                <ClientOrFreelancer userType="freelancer" />
               </RouteWrapper>
             }
           />
 
           <Route
-            path="/signupform"
+            path="/client-or-freelancer"
             element={
               <RouteWrapper>
-                <SignUpForm />
+                <ClientOrFreelancer />
               </RouteWrapper>
             }
           />

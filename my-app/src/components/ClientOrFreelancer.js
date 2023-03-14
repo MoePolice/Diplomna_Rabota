@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
-const SignUpForm = () => {
+const ClientOrFreelancer = () => {
   const navigate = useNavigate();
 
   const handleClientSignUp = () => {
@@ -43,4 +43,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default ClientOrFreelancer;
