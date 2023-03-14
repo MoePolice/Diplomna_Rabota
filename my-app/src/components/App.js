@@ -7,7 +7,7 @@ import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
 import ForgotPassword from "./ForgotPassword";
 import UpdateProfile from "./UpdateProfile";
-import SignUpForm from "./SignUpForm";
+import SignUpForm from "./ClientOrFreelancer";
 import MainPage from "../MainPage/MainPage";
 import RouteWrapper from "./RouteWrapper";
 import UserProfile from "./UserProfile";
