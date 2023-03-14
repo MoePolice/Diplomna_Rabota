@@ -84,7 +84,10 @@ function MainPage() {
                   </Nav.Item>
                 </>
               ) : (
-                <Dashboard />
+                <>
+                  <MyProfile />
+                  <LoginStatus />
+                </>
               )}
             </Nav>
           </Navbar.Collapse>
