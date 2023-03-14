@@ -6,4 +6,6 @@ const MyProfile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [displayName, setDisplayName] = useState("");
   const [bio, setBio] = useState("");
+
+  const currentUser = firebase.auth().currentUser;
 };
