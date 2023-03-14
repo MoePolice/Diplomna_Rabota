@@ -39,3 +39,7 @@ useEffect(() => {
 const handleDisplayNameChange = (e) => {
   setDisplayName(e.target.value);
 };
+
+const handleBioChange = (e) => {
+  setBio(e.target.value);
+};
