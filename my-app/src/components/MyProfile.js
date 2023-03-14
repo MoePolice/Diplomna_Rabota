@@ -9,3 +9,23 @@ const MyProfile = () => {
 
   const currentUser = firebase.auth().currentUser;
 };
+
+useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        if (!currentUser) {
+          throw new Error("User not authenticated");
+        }
+
+        const userRef = db.collection("users").doc(currentUser.uid);
+        const userDoc = await userRef.get();
+
+        if (userDoc.exists) {
+          setUser(userDoc.data());
+          setDisplayName(userDoc.data().displayName);
+          setBio(userDoc.data().bio);
+        } else {
+          console.log("User does not exist in the database.");
+        }
+    }
+
