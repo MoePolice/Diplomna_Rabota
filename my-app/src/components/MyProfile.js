@@ -27,5 +27,9 @@ useEffect(() => {
         } else {
           console.log("User does not exist in the database.");
         }
+        setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching user data: ", error);
     }
+  };
 
