@@ -59,6 +59,14 @@ export const createGig = async (name, price, deadline) => {
     },
     { headers: { Authorization: `Bearer ${token}` } }
   );
+
+  const freelancerRef = firestore
+    .collection("freelancers")
+    .doc(auth.currentUser.uid);
+  await freelancerRef.update({
+    gigs: firebase.firestore.FieldValue.arrayUnion(gigRef.id),
+  });
+
   return gigRef.id;
 };
 
