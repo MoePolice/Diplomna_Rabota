@@ -35,3 +35,7 @@ useEffect(() => {
 
   fetchUserData();
 }, [currentUser]);
+
+const handleDisplayNameChange = (e) => {
+  setDisplayName(e.target.value);
+};
