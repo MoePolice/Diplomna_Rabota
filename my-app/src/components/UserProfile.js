@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { firebase, db } from "../firebase";
-import { Container, Form, Button } from "react-bootstrap";
+import { Container, Form, Button, ListGroup } from "react-bootstrap";
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -117,3 +117,5 @@ const UserProfile = () => {
     </Container>
   );
 };
+
+export default UserProfile;
