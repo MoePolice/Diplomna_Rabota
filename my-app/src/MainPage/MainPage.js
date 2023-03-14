@@ -18,6 +18,7 @@ import { auth } from "../firebase";
 import CreateGigForm from "../components/CreateGigForm";
 import LoginStatus from "../components/LoginStatus";
 import Dashboard from "../components/Dashboard";
+import UserProfile from "../components/UserProfile";
 
 function MainPage() {
   const [userType, setUserType] = useState("");
@@ -85,7 +86,7 @@ function MainPage() {
                 </>
               ) : (
                 <>
-                  <MyProfile />
+                  <UserProfile />
                   <LoginStatus />
                 </>
               )}
