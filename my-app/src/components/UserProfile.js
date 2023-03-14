@@ -75,44 +75,45 @@ const UserProfile = () => {
 
   return (
     <Container className="my-3">
-  <h2>My Profile</h2>
-  <Form>
-    <Form.Group controlId="formDisplayName">
-      <Form.Label>Display Name:</Form.Label>
-      <Form.Control
-        type="text"
-        value={displayName}
-        onChange={handleDisplayNameChange}
-      />
-    </Form.Group>
+      <h2>My Profile</h2>
+      <Form>
+        <Form.Group controlId="formDisplayName">
+          <Form.Label>Display Name:</Form.Label>
+          <Form.Control
+            type="text"
+            value={displayName}
+            onChange={handleDisplayNameChange}
+          />
+        </Form.Group>
 
-    <Form.Group controlId="formBio">
-      <Form.Label>Bio:</Form.Label>
-      <Form.Control
-        as="textarea"
-        rows={3}
-        value={bio}
-        onChange={handleBioChange}
-      />
-    </Form.Group>
+        <Form.Group controlId="formBio">
+          <Form.Label>Bio:</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            value={bio}
+            onChange={handleBioChange}
+          />
+        </Form.Group>
 
-    <Button variant="primary" onClick={handleUpdateProfile}>
-      Update Profile
-    </Button>
+        <Button variant="primary" onClick={handleUpdateProfile}>
+          Update Profile
+        </Button>
 
-    <hr />
+        <hr />
 
-    <h3>My Gigs</h3>
-    <ListGroup>
-      {gigs && gigs.map((gig) => (
-        <li key={gig.id}>
-          <p>{gig.title}</p>
-          <p>{gig.description}</p>
-          <p>{gig.price}</p>
-        </li>
-      ))}
-    </ListGroup>
-  </Form>
-</Container>
-            
-         
+        <h3>My Gigs</h3>
+        <ListGroup>
+          {gigs &&
+            gigs.map((gig) => (
+              <li key={gig.id}>
+                <p>{gig.title}</p>
+                <p>{gig.description}</p>
+                <p>{gig.price}</p>
+              </li>
+            ))}
+        </ListGroup>
+      </Form>
+    </Container>
+  );
+};
