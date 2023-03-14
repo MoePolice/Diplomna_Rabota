@@ -113,6 +113,8 @@ export default function SignUp() {
     const userData = {
       email: email,
       userType: userType,
+      firstName: firstName,
+      lastName: lastName,
     };
 
     if (userType === "client") {
