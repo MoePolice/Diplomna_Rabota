@@ -25,7 +25,9 @@ const auth = app.auth();
 const getIdToken = async () => {
   const user = auth.currentUser;
   if (user) {
+    console.log("User is authenticated");
     const idTokenResult = await user.getIdTokenResult();
+    console.log("idTokenResult", idTokenResult);
     return idTokenResult.token;
   } else {
     throw new Error("User not authenticated.");
@@ -46,28 +48,30 @@ export const createUserProfile = async (email, name, userType) => {
   );
 };
 
+export const db = firebase.firestore();
+
 export const createGig = async (name, price, deadline) => {
-  const token = await getIdToken();
-  const gigRef = firestore.collection("gigs").doc();
-  await gigRef.set(
-    {
+  try {
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      throw new Error("No authenticated user found");
+    }
+    const gig = {
       name,
       price,
       deadline,
-      uid: auth.currentUser.uid,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    },
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
-
-  const freelancerRef = firestore
-    .collection("freelancers")
-    .doc(auth.currentUser.uid);
-  await freelancerRef.update({
-    gigs: firebase.firestore.FieldValue.arrayUnion(gigRef.id),
-  });
-
-  return gigRef.id;
+      freelancerId: currentUser.uid,
+    };
+    await db
+      .collection("freelancers")
+      .doc(currentUser.uid)
+      .collection("gigs")
+      .add(gig);
+  } catch (error) {
+    console.error("Error creating gig: ", error);
+    throw error;
+  }
 };
 
 export const signIn = (email, password) => {

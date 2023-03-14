@@ -1,29 +1,31 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import { createGig } from "../firebase";
 
 const CreateGigForm = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [deadline, setDeadline] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    createGig(name, price, deadline)
-      .then(() => {
-        alert("Gig created successfully!");
-        setName("");
-        setPrice("");
-        setDeadline("");
-      })
-      .catch((error) => {
-        console.error("Error creating gig: ", error);
-        alert("Error creating gig!");
-      });
+    try {
+      await createGig(name, price, deadline);
+      alert("Gig created successfully!");
+      setName("");
+      setPrice("");
+      setDeadline("");
+    } catch (error) {
+      console.error("Error creating gig: ", error);
+      const errorMessage = error.message || "Error creating gig!";
+      setErrorMessage(errorMessage);
+    }
   };
 
   return (
     <Form onSubmit={handleSubmit}>
+      {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
       <Form.Group controlId="formBasicName">
         <Form.Label>Gig Name</Form.Label>
         <Form.Control
