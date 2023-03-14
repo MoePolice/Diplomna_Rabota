@@ -43,3 +43,19 @@ const handleDisplayNameChange = (e) => {
 const handleBioChange = (e) => {
   setBio(e.target.value);
 };
+
+const handleUpdateProfile = async () => {
+  try {
+    await db.collection("users").doc(currentUser.uid).set(
+      {
+        displayName,
+        bio,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      },
+      { merge: true }
+    );
+    console.log("Profile updated successfully.");
+  } catch (error) {
+    console.error("Error updating profile: ", error);
+  }
+};
