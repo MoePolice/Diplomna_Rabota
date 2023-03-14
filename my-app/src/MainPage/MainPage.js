@@ -11,7 +11,6 @@ import {
   Button,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./MainPage.css";
 import Footer from "./Footer";
 import logo from "../img/Logo.jpg";
 import { db } from "../firebase";
