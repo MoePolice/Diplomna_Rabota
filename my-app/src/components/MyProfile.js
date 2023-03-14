@@ -63,3 +63,20 @@ const handleUpdateProfile = async () => {
 if (isLoading) {
   return <div>Loading...</div>;
 }
+
+return (
+    <div>
+      <h2>My Profile</h2>
+      <label htmlFor="displayName">Display Name:</label>
+      <input
+        type="text"
+        id="displayName"
+        value={displayName}
+        onChange={handleDisplayNameChange}
+      />
+      <label htmlFor="bio">Bio:</label>
+      <textarea id="bio" value={bio} onChange={handleBioChange} />
+      <button onClick={handleUpdateProfile}>Update Profile</button>
+    </div>
+  );
+};
