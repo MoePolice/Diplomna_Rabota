@@ -52,22 +52,20 @@ export const db = firebase.firestore();
 
 export const createGig = async (name, price, deadline) => {
   try {
-    const currentUser = auth.currentUser;
+    const currentUser = firebase.auth().currentUser;
     if (!currentUser) {
-      throw new Error("No authenticated user found");
+      throw new Error("User not authenticated");
     }
-    const gig = {
-      name,
-      price,
-      deadline,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      freelancerId: currentUser.uid,
-    };
-    await db
+    const gigRef = await db
       .collection("freelancers")
       .doc(currentUser.uid)
       .collection("gigs")
-      .add(gig);
+      .add({
+        name,
+        price,
+        deadline,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
   } catch (error) {
     console.error("Error creating gig: ", error);
     throw error;
