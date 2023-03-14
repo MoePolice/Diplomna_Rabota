@@ -29,11 +29,15 @@ const UserProfile = () => {
           console.log("User does not exist in the database.");
         }
 
-        const gigsRef = userRef.collection("gigs");
+        const gigsRef = db.collection("gigs");
         const gigsQuery = gigsRef.where("freelancerId", "==", currentUser.uid);
         const gigsSnapshot = await gigsQuery.get();
 
-        const gigsData = gigsSnapshot.docs.map((doc) => doc.data());
+        const gigsData = gigsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        console.log("gigsData: ", gigsData);
         setGigs(gigsData);
 
         setIsLoading(false);
@@ -105,13 +109,16 @@ const UserProfile = () => {
         <h3>My Gigs</h3>
         <ListGroup>
           {gigs &&
-            gigs.map((gig) => (
-              <li key={gig.id}>
-                <p>{gig.title}</p>
-                <p>{gig.description}</p>
-                <p>{gig.price}</p>
-              </li>
-            ))}
+            gigs.map((gig) => {
+              console.log("Individual gig:", gig);
+              return (
+                <ListGroup.Item key={gig.id}>
+                  <h5>{gig.title}</h5>
+                  <p>{gig.description}</p>
+                  <p>Price: ${gig.price}</p>
+                </ListGroup.Item>
+              );
+            })}
         </ListGroup>
       </Form>
     </Container>
