@@ -91,7 +91,7 @@ function MainPage() {
                     <Nav.Link href="login">Log In</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link href="signupform">Sign Up</Nav.Link>
+                    <Nav.Link href="client-or-freelancer">Sign Up</Nav.Link>
                   </Nav.Item>
                 </>
               ) : (

@@ -7,8 +7,8 @@ import { firebase } from "../firebase";
 import { createUserWithEmailAndPassword, createUserProfile } from "../firebase";
 
 export default function SignUp() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [firstNameRef, setFirstName] = useState("");
+  const [lastNameRef, setLastName] = useState("");
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
@@ -113,8 +113,8 @@ export default function SignUp() {
     const userData = {
       email: email,
       userType: userType,
-      firstName: firstName,
-      lastName: lastName,
+      firstName: firstNameRef,
+      lastName: lastNameRef,
     };
 
     if (userType === "client") {
@@ -137,20 +137,20 @@ export default function SignUp() {
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <Form.Group id="firstName">
+            <Form.Group id="first-name">
               <Form.Label>First Name</Form.Label>
               <Form.Control
                 type="text"
-                value={firstName}
+                value={firstNameRef}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
               />
             </Form.Group>
-            <Form.Group id="lastName">
+            <Form.Group id="last-name">
               <Form.Label>Last Name</Form.Label>
               <Form.Control
                 type="text"
-                value={lastName}
+                value={lastNameRef}
                 onChange={(e) => setLastName(e.target.value)}
                 required
               />
