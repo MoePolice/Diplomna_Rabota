@@ -6,6 +6,7 @@ const CreateGigForm = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [deadline, setDeadline] = useState("");
+  const [currency, setCurrency] = useState("USD");
   const [errorMessage, setErrorMessage] = useState("");
 
   const today = new Date().toISOString().slice(0, 10);
