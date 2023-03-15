@@ -13,7 +13,7 @@ const CreateGigForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await createGig(name, `${currency} ${price}`, deadline);
+      await createGig(name, price, deadline);
       alert("Gig created successfully!");
       setName("");
       setCurrency("USD");
