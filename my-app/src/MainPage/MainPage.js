@@ -21,6 +21,7 @@ import LoginStatus from "../components/LoginStatus";
 import Dashboard from "../components/Dashboard";
 import UserProfile from "../components/UserProfile";
 import SearchBar from "../components/SearchBar";
+import SearchGigs from "../components/SearchGigs";
 
 function ProfileButton() {
   return (
