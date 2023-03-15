@@ -9,6 +9,7 @@ const UserProfile = () => {
   const [displayName, setDisplayName] = useState("");
   const [bio, setBio] = useState("");
   const [gigs, setGigs] = useState([]);
+  const [showGigs, setShowGigs] = useState(false);
 
   const currentUser = firebase.auth().currentUser;
 
@@ -35,12 +36,6 @@ const UserProfile = () => {
           .collection("freelancers")
           .doc(currentUser.uid)
           .collection("gigs");
-        // gigsRef.add({
-        //   name: "My Gig Title",
-        //   description: "My Gig Description",
-        //   price: 100,
-        //   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        // });
 
         const gigsQuery = gigsRef.where(
           "freelancerId",
@@ -100,6 +95,10 @@ const UserProfile = () => {
     }
   };
 
+  const handleToggleGigs = () => {
+    setShowGigs(!showGigs);
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -130,22 +129,27 @@ const UserProfile = () => {
         </Button>
         <hr />
         <h3>My Gigs</h3>
-        <ListGroup>
-          {gigs &&
-            gigs.map((gig) => {
-              console.log("Individual gig:", gig);
-              console.log("Name:", gig.name);
-              console.log("Deadline:", gig.deadline);
-              console.log("Price:", gig.price);
-              return (
-                <ListGroup.Item key={gig.id}>
-                  <h5>{gig.name}</h5>
-                  <p>Deadline: {gig.deadline}</p>
-                  <p>Price: ${gig.price}</p>
-                </ListGroup.Item>
-              );
-            })}
-        </ListGroup>
+        <Button className="w-100 auto mt-3" onClick={handleToggleGigs}>
+          {showGigs ? "Hide My Gigs" : "Show My Gigs"}
+        </Button>
+        {showGigs && (
+          <ListGroup>
+            {gigs &&
+              gigs.map((gig) => {
+                console.log("Individual gig:", gig);
+                console.log("Name:", gig.name);
+                console.log("Deadline:", gig.deadline);
+                console.log("Price:", gig.price);
+                return (
+                  <ListGroup.Item key={gig.id}>
+                    <h5>{gig.name}</h5>
+                    <p>Deadline: {gig.deadline}</p>
+                    <p>Price: ${gig.price}</p>
+                  </ListGroup.Item>
+                );
+              })}
+          </ListGroup>
+        )}
       </Form>
       <CreateGigForm />
     </Container>
