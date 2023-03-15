@@ -63,6 +63,7 @@ export const createGig = async (name, price, deadline) => {
       .add({
         name,
         price: `${price}`,
+        description,
         deadline,
         freelancerId: currentUser.uid,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
