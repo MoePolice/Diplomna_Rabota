@@ -70,6 +70,8 @@ const UserProfile = () => {
         { merge: true }
       );
       console.log("Profile updated successfully.");
+      setDisplayName("");
+      setBio("");
     } catch (error) {
       console.error("Error updating profile: ", error);
     }
