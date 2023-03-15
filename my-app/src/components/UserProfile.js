@@ -30,17 +30,45 @@ const UserProfile = () => {
           console.log("User does not exist in the database.");
         }
 
-        const gigsRef = db.collection("gigs");
-        const gigsQuery = gigsRef.where("freelancerId", "==", currentUser.uid);
+        const gigsRef = db
+          .collection("freelancers")
+          .doc(currentUser.uid)
+          .collection("gigs");
+        // gigsRef.add({
+        //   title: "My Gig Title",
+        //   description: "My Gig Description",
+        //   price: 100,
+        //   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        // });
+
+        const gigsQuery = gigsRef.where(
+          "freelancerId",
+          "==",
+          currentUser.uid.toString()
+        );
+
         const gigsSnapshot = await gigsQuery.get();
 
-        const gigsData = gigsSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        gigsSnapshot.forEach((doc) => {
+          console.log(doc.id, "=>", doc.data());
+        });
+
+        const gigsData = gigsSnapshot.docs.map((doc) => {
+          const data = doc.data();
+          const freelancerId = data.freelancerId || null; // check for the existence of freelancerId
+          console.log("freelancerId:", freelancerId);
+          return {
+            id: doc.id,
+            ...data,
+          };
+        });
         console.log("gigsData: ", gigsData);
+        console.log(
+          "gigsData with freelancerId: ",
+          gigsData.map((gig) => gig.freelancerId)
+        );
+
         setGigs(gigsData);
-        console.log("gigsData: ", gigsData);
 
         setIsLoading(false);
       } catch (error) {
