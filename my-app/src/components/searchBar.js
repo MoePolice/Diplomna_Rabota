@@ -10,18 +10,20 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} inline>
-      <Form.Control
-        type="text"
-        placeholder="Search for freelancers"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="mr-sm-2"
-      />
-      <Button type="submit" variant="outline-success">
+    <div className="d-flex">
+      <Form onSubmit={handleSubmit} inline>
+        <Form.Control
+          type="text"
+          placeholder="Search for services"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="mr-sm-2"
+        />
+      </Form>
+      <Button type="submit" variant="outline-success" onClick={handleSubmit}>
         Search
       </Button>
-    </Form>
+    </div>
   );
 };
 

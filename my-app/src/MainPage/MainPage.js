@@ -20,7 +20,7 @@ import CreateGigForm from "../components/CreateGigForm";
 import LoginStatus from "../components/LoginStatus";
 import Dashboard from "../components/Dashboard";
 import UserProfile from "../components/UserProfile";
-import SearchBar from "../components/searchBar";
+import SearchBar from "../components/SearchBar";
 
 function ProfileButton() {
   return (
@@ -80,10 +80,7 @@ function MainPage() {
               <Nav.Link href="/">Home</Nav.Link>
             </Nav>
             <Form inline className="d-flex">
-              <FormControl type="text" placeholder="Search" className="mr-5" />
-              <Button variant="outline-success" className="">
-                Search
-              </Button>
+              <SearchBar />
             </Form>
             <Nav className="d-flex justify-content-end">
               {userType === null ? (
