@@ -116,7 +116,6 @@ const UserProfile = () => {
             onChange={handleDisplayNameChange}
           />
         </Form.Group>
-
         <Form.Group controlId="formBio">
           <Form.Label>Bio:</Form.Label>
           <Form.Control
@@ -129,9 +128,7 @@ const UserProfile = () => {
         <Button variant="primary" onClick={handleUpdateProfile}>
           Update Profile
         </Button>
-
         <hr />
-
         <h3>My Gigs</h3>
         <ListGroup>
           {gigs &&
@@ -150,7 +147,7 @@ const UserProfile = () => {
             })}
         </ListGroup>
       </Form>
-      {userType === "freelancer" && <CreateGigForm />}
+      <CreateGigForm />
     </Container>
   );
 };
