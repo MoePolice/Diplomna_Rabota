@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button, Alert, InputGroup } from "react-bootstrap";
 import { createGig } from "../firebase";
 
 const CreateGigForm = () => {
   const [name, setName] = useState("");
+  const [currency, setCurrency] = useState("USD");
   const [price, setPrice] = useState("");
   const [deadline, setDeadline] = useState("");
-  const [currency, setCurrency] = useState("USD");
   const [errorMessage, setErrorMessage] = useState("");
-
   const today = new Date().toISOString().slice(0, 10);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await createGig(name, price, deadline);
+      await createGig(name, `${price}`, deadline);
       alert("Gig created successfully!");
       setName("");
+      setCurrency("USD");
       setPrice("");
       setDeadline("");
     } catch (error) {
@@ -40,13 +40,16 @@ const CreateGigForm = () => {
       </Form.Group>
 
       <Form.Group controlId="formBasicPrice">
-        <Form.Label>Gig Price</Form.Label>
-        <Form.Control
-          type="number"
-          placeholder="Enter price"
-          value={price}
-          onChange={(event) => setPrice(event.target.value)}
-        />
+        <Form.Label>Price</Form.Label>
+        <InputGroup>
+          <InputGroup.Text>$</InputGroup.Text>
+          <Form.Control
+            type="number"
+            placeholder="Enter price"
+            value={price}
+            onChange={(event) => setPrice(event.target.value)}
+          />
+        </InputGroup>
       </Form.Group>
 
       <Form.Group controlId="formBasicDeadline">
