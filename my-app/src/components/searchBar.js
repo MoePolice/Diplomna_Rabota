@@ -8,6 +8,24 @@ const SearchBar = ({ onSearch }) => {
     e.preventDefault();
     onSearch(query);
   };
+
+  return (
+    <Form onSubmit={handleSubmit} inline>
+      <Form.Control
+        type="text"
+        placeholder="Search for freelancers"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        className="mr-sm-2"
+      />
+      <Button type="submit" variant="outline-success">
+        Search
+      </Button>
+    </Form>
+  );
+};
+
+
 };
 
 export default SearchBar;
