@@ -50,7 +50,7 @@ export const createUserProfile = async (email, name, userType) => {
 
 export const db = firebase.firestore();
 
-export const createGig = async (name, price, deadline) => {
+export const createGig = async (name, price, description, deadline) => {
   try {
     const currentUser = firebase.auth().currentUser;
     if (!currentUser) {
