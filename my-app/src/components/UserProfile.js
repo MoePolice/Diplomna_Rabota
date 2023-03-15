@@ -125,7 +125,7 @@ const UserProfile = () => {
             onChange={handleBioChange}
           />
         </Form.Group>
-        <Button variant="primary" onClick={handleUpdateProfile}>
+        <Button className="w-100 auto mt-3" onClick={handleUpdateProfile}>
           Update Profile
         </Button>
         <hr />

@@ -8,6 +8,8 @@ const CreateGigForm = () => {
   const [deadline, setDeadline] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const today = new Date().toISOString().slice(0, 10);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -52,11 +54,12 @@ const CreateGigForm = () => {
           type="date"
           placeholder="Enter deadline"
           value={deadline}
+          min={today}
           onChange={(event) => setDeadline(event.target.value)}
         />
       </Form.Group>
 
-      <Button variant="primary" type="submit">
+      <Button className="w-100 auto mt-3" variant="primary" type="submit">
         Create Gig
       </Button>
     </Form>
