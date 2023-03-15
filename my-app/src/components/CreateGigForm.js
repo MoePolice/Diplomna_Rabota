@@ -13,7 +13,7 @@ const CreateGigForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await createGig(name, price, deadline);
+      await createGig(name, price, deadline, description);
       alert("Gig created successfully!");
       setName("");
       setPrice("");
@@ -36,6 +36,17 @@ const CreateGigForm = () => {
           placeholder="Enter name"
           value={name}
           onChange={(event) => setName(event.target.value)}
+        />
+      </Form.Group>
+
+      <Form.Group controlId="formBasicDescription">
+        <Form.Label>Description</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={3}
+          placeholder="Enter description"
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
         />
       </Form.Group>
 
