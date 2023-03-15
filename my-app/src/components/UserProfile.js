@@ -51,6 +51,7 @@ const UserProfile = () => {
           return {
             id: doc.id,
             name: data.name,
+            description: data.description,
             createdAt: data.createdAt,
             deadline: data.deadline,
             freelancerId: freelancerId,
