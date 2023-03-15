@@ -172,7 +172,6 @@ function MainPage() {
           </Col>
         </Row>
       </Container>
-      {userType === "freelancer" && <CreateGigForm />}
       <Footer />
     </>
   );

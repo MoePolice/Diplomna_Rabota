@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { firebase, db } from "../firebase";
 import { Container, Form, Button, ListGroup } from "react-bootstrap";
+import CreateGigForm from "./CreateGigForm";
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -35,7 +36,7 @@ const UserProfile = () => {
           .doc(currentUser.uid)
           .collection("gigs");
         // gigsRef.add({
-        //   title: "My Gig Title",
+        //   name: "My Gig Title",
         //   description: "My Gig Description",
         //   price: 100,
         //   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -49,24 +50,18 @@ const UserProfile = () => {
 
         const gigsSnapshot = await gigsQuery.get();
 
-        gigsSnapshot.forEach((doc) => {
-          console.log(doc.id, "=>", doc.data());
-        });
-
         const gigsData = gigsSnapshot.docs.map((doc) => {
           const data = doc.data();
-          const freelancerId = data.freelancerId || null; // check for the existence of freelancerId
-          console.log("freelancerId:", freelancerId);
+          const freelancerId = data.freelancerId || null;
           return {
             id: doc.id,
-            ...data,
+            name: data.name,
+            createdAt: data.createdAt,
+            deadline: data.deadline,
+            freelancerId: freelancerId,
+            price: data.price,
           };
         });
-        console.log("gigsData: ", gigsData);
-        console.log(
-          "gigsData with freelancerId: ",
-          gigsData.map((gig) => gig.freelancerId)
-        );
 
         setGigs(gigsData);
 
@@ -131,7 +126,6 @@ const UserProfile = () => {
             onChange={handleBioChange}
           />
         </Form.Group>
-
         <Button variant="primary" onClick={handleUpdateProfile}>
           Update Profile
         </Button>
@@ -143,16 +137,20 @@ const UserProfile = () => {
           {gigs &&
             gigs.map((gig) => {
               console.log("Individual gig:", gig);
+              console.log("Name:", gig.name);
+              console.log("Deadline:", gig.deadline);
+              console.log("Price:", gig.price);
               return (
                 <ListGroup.Item key={gig.id}>
-                  <h5>{gig.title}</h5>
-                  <p>{gig.description}</p>
+                  <h5>{gig.name}</h5>
+                  <p>Deadline: {gig.deadline}</p>
                   <p>Price: ${gig.price}</p>
                 </ListGroup.Item>
               );
             })}
         </ListGroup>
       </Form>
+      {userType === "freelancer" && <CreateGigForm />}
     </Container>
   );
 };
