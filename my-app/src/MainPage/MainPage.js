@@ -35,7 +35,7 @@ function MainPage() {
   const [userType, setUserType] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  const [searchText, setSearchText] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
@@ -64,8 +64,15 @@ function MainPage() {
     return unsubscribe;
   }, [auth]);
 
-  const handleSearchInputChange = (e) => {
-    setSearchText(e.target.value);
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    try {
+      const results = await searchGigs(searchQuery);
+      setSearchResults(results);
+    } catch (error) {
+      console.log("Error searching gigs:", error);
+      setSearchResults([]);
+    }
   };
 
   if (isLoading) {
