@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { firebase, db } from "../firebase";
 import { Container, Form, Button, ListGroup } from "react-bootstrap";
 import CreateGigForm from "./CreateGigForm";
-import SearchBar from "./SearchBar";
+import SearchBar from "./searchBar";
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
