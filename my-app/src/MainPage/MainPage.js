@@ -35,6 +35,9 @@ function MainPage() {
   const [userType, setUserType] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  const [searchText, setSearchText] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -61,6 +64,10 @@ function MainPage() {
     return unsubscribe;
   }, [auth]);
 
+  const handleSearchInputChange = (e) => {
+    setSearchText(e.target.value);
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -81,7 +88,11 @@ function MainPage() {
               <Nav.Link href="/">Home</Nav.Link>
             </Nav>
             <Form inline className="d-flex">
-              <SearchBar />
+              <SearchBar
+                searchText={searchText}
+                setSearchText={setSearchText}
+              />
+              {/* <SearchGigs searchResults={searchResults} /> */}
             </Form>
             <Nav className="d-flex justify-content-end">
               {userType === null ? (

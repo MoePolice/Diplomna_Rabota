@@ -1,3 +1,6 @@
+import React from "react";
+import { firestore } from "../firebase";
+
 const SearchGigs = async (query) => {
   const snapshot = await firestore
     .collection("freelancers")
