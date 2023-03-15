@@ -25,6 +25,7 @@ const UserProfile = () => {
           setUser(userDoc.data());
           setDisplayName(userDoc.data().displayName);
           setBio(userDoc.data().bio);
+          console.log("User data retrieved: ", userDoc.data());
         } else {
           console.log("User does not exist in the database.");
         }
@@ -39,6 +40,7 @@ const UserProfile = () => {
         }));
         console.log("gigsData: ", gigsData);
         setGigs(gigsData);
+        console.log("gigsData: ", gigsData);
 
         setIsLoading(false);
       } catch (error) {
