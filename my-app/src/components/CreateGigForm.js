@@ -4,7 +4,6 @@ import { createGig } from "../firebase";
 
 const CreateGigForm = () => {
   const [name, setName] = useState("");
-  const [currency, setCurrency] = useState("USD");
   const [price, setPrice] = useState("");
   const [deadline, setDeadline] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -16,7 +15,6 @@ const CreateGigForm = () => {
       await createGig(name, price, deadline);
       alert("Gig created successfully!");
       setName("");
-      setCurrency("USD");
       setPrice("");
       setDeadline("");
     } catch (error) {
