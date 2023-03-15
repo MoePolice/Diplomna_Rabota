@@ -17,6 +17,7 @@ const CreateGigForm = () => {
       alert("Gig created successfully!");
       setName("");
       setPrice("");
+      setDescription("");
       setDeadline("");
     } catch (error) {
       console.error("Error creating gig: ", error);
