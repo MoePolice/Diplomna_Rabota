@@ -5,6 +5,7 @@ import { createGig } from "../firebase";
 const CreateGigForm = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const today = new Date().toISOString().slice(0, 10);
