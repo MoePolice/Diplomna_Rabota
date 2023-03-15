@@ -13,7 +13,7 @@ const CreateGigForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await createGig(name, price, deadline, description);
+      await createGig(name, price, description, deadline);
       alert("Gig created successfully!");
       setName("");
       setPrice("");

@@ -137,15 +137,12 @@ const UserProfile = () => {
           <ListGroup>
             {gigs &&
               gigs.map((gig) => {
-                console.log("Individual gig:", gig);
-                console.log("Name:", gig.name);
-                console.log("Deadline:", gig.deadline);
-                console.log("Price:", gig.price);
                 return (
                   <ListGroup.Item key={gig.id}>
                     <h5>{gig.name}</h5>
-                    <p>Deadline: {gig.deadline}</p>
                     <p>Price: ${gig.price}</p>
+                    <p>Description: {gig.description}</p>
+                    <p>Deadline: {gig.deadline}</p>
                   </ListGroup.Item>
                 );
               })}
