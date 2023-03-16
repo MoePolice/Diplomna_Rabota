@@ -22,6 +22,7 @@ import Dashboard from "../components/Dashboard";
 import UserProfile from "../components/UserProfile";
 import SearchBar from "../components/SearchBar";
 import SearchGigs from "../components/SearchGigs";
+import ContactForm from "./ContactForm";
 
 function ProfileButton() {
   return (
@@ -140,8 +141,8 @@ function MainPage() {
             <h1 className="text-center">Welcome to Freelance Webpage</h1>
             <p className="text-center">
               Need help with a project or looking for work? Look no further than
-              Freelance Webpage. Our platform connects talented freelancers with
-              people like you who need their expertise.
+              Freelance Webpage. This is the platform that connects talented
+              freelancers with people like you who need their expertise.
             </p>
           </Col>
         </Row>
@@ -152,14 +153,14 @@ function MainPage() {
             <h3 className="text-center">Services</h3>
             <p className="text-center">
               Find the right freelancer for any job, big or small, with
-              Freelance Webpage. Our platform offers a wide variety of services,
+              Freelance Webpage. The platform offers a wide variety of services,
               from web design to content creation and everything in between.
             </p>
           </Col>
           <Col md={4}>
             <h3 className="text-center">Portfolio</h3>
             <p className="text-center">
-              Want to see the work of our talented freelancers? Check out our
+              Want to see the work of our talented freelancers? Check out the
               portfolio section to browse through examples of completed projects
               and find inspiration for your own.
             </p>
@@ -167,9 +168,9 @@ function MainPage() {
           <Col md={4}>
             <h3 className="text-center">About</h3>
             <p className="text-center">
-              Learn more about Freelance Webpage and the team behind it. Our
-              mission is to make it easy for freelancers and clients to find
-              each other and work together in a seamless and enjoyable way.
+              Learn more about Freelance Webpage. The mission of the website is
+              to make it easy for freelancers and clients to find each other and
+              work together in a seamless and enjoyable way.
             </p>
           </Col>
         </Row>
