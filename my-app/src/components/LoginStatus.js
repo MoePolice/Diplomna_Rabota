@@ -1,13 +1,27 @@
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginStatus() {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    try {
+      await logout();
+      navigate("/login");
+    } catch {
+      console.log("Failed to log out");
+    }
+  }
 
   return (
     <div className="w-100 text-center mt-2">
       {currentUser ? (
-        <button className="btn btn-primary">Log Out</button>
+        <Button variant="primary" onClick={handleLogout}>
+          Log Out
+        </Button>
       ) : (
         <p>You are not logged in.</p>
       )}
