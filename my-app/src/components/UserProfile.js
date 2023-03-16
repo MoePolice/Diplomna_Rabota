@@ -23,15 +23,24 @@ const UserProfile = () => {
           throw new Error("User not authenticated");
         }
 
-        const userRef = db.collection("freelancers").doc(currentUser.uid);
-        const userDoc = await userRef.get();
+        const freelancerRef = db.collection("freelancers").doc(currentUser.uid);
+        const freelancerDoc = await freelancerRef.get();
 
-        if (userDoc.exists) {
-          setUser(userDoc.data());
-          setDisplayName(userDoc.data().displayName);
-          setBio(userDoc.data().bio);
-          setIsFreelancer(userDoc.data().userType === "freelancer");
+        const clientRef = db.collection("clients").doc(currentUser.uid);
+        const clientDoc = await clientRef.get();
+
+        if (freelancerDoc.exists) {
+          setUser(freelancerDoc.data());
+          setDisplayName(freelancerDoc.data().displayName);
+          setBio(freelancerDoc.data().bio);
+          setIsFreelancer(true);
+        } else if (clientDoc.exists) {
+          setUser(clientDoc.data());
+          setDisplayName(clientDoc.data().displayName);
+          setBio(clientDoc.data().bio);
+          setIsFreelancer(false);
         } else {
+          throw new Error("User not found");
         }
 
         const gigsRef = db
@@ -82,14 +91,31 @@ const UserProfile = () => {
 
   const handleUpdateProfile = async () => {
     try {
-      await db.collection("freelancers").doc(currentUser.uid).set(
-        {
-          displayName,
-          bio,
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-        },
-        { merge: true }
-      );
+      const [clientSnapshot, freelancerSnapshot] = await Promise.all([
+        db.collection("clients").doc(currentUser.uid).get(),
+        db.collection("freelancers").doc(currentUser.uid).get(),
+      ]);
+
+      if (clientSnapshot.exists) {
+        await db.collection("clients").doc(currentUser.uid).set(
+          {
+            displayName,
+            bio,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          },
+          { merge: true }
+        );
+      } else if (freelancerSnapshot.exists) {
+        await db.collection("freelancers").doc(currentUser.uid).set(
+          {
+            displayName,
+            bio,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          },
+          { merge: true }
+        );
+      }
+
       console.log("Profile updated successfully.");
       setDisplayName("");
       setBio("");

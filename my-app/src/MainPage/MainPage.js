@@ -164,7 +164,7 @@ function MainPage() {
             </p>
           </Col>
           <Col md={4}>
-            <h3 className="text-center">Portfolio</h3>
+            <h3 className="text-center">Gigs</h3>
             <p className="text-center">
               Want to see the work of our talented freelancers? Check out the
               portfolio section to browse through examples of completed projects
