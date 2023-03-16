@@ -1,4 +1,7 @@
 import React, { useRef, useState } from "react";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { db } from "../firebase";
 import { Form, Button, Alert } from "react-bootstrap";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -10,21 +13,24 @@ export default function ContactForm() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    try {
-      setMessage("");
-      setError("");
-      setLoading(true);
-      await resetPassword(emailRef.current.value);
-      setMessage("Check your inbox for further instructions");
-    } catch {
-      setError("Failed to reset password");
-    }
-
-    setLoading(false);
-  }
+    const email = e.target.elements.email.value;
+    const message = e.target.elements.message.value;
+    db.collection("emails")
+      .add({
+        email: email,
+        message: message,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        alert("Your message has been sent!");
+      })
+      .catch((error) => {
+        alert("Oops, something went wrong. Please try again later.");
+        console.error(error);
+      });
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
