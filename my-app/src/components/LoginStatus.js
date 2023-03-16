@@ -17,9 +17,13 @@ export default function LoginStatus() {
   }
 
   return (
-    <div className="w-100 text-center mt-2">
+    <div className="d-flex justify-content-center mt-2">
       {currentUser ? (
-        <Button variant="primary" onClick={handleLogout}>
+        <Button
+          variant="primary"
+          style={{ width: "120px" }}
+          onClick={handleLogout}
+        >
           Log Out
         </Button>
       ) : (

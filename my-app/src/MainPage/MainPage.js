@@ -27,7 +27,13 @@ import ContactForm from "../components/ContactForm";
 function ProfileButton() {
   return (
     <Link to="/user-profile">
-      <Button variant="primary">My Profile</Button>
+      <Button
+        variant="primary"
+        style={{ width: "120px" }}
+        className="d-flex justify-content-center mt-2"
+      >
+        My Profile
+      </Button>
     </Link>
   );
 }
