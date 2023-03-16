@@ -25,7 +25,7 @@ import SearchGigs from "../components/SearchGigs";
 
 function ProfileButton() {
   return (
-    <Link to="/dashboard">
+    <Link to="/user-profile">
       <Button variant="primary">My Profile</Button>
     </Link>
   );
@@ -195,7 +195,7 @@ function MainPage() {
                 <Form.Label>Message</Form.Label>
                 <Form.Control as="textarea" rows="3" />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit w-100 auto mt-3">
                 Submit
               </Button>
             </Form>
