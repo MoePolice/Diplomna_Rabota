@@ -130,8 +130,9 @@ const UserProfile = () => {
         <Button className="w-100 auto mt-3" onClick={handleUpdateProfile}>
           Update Profile
         </Button>
+        <hr />
         <Link to="/dashboard">
-          <Button variant="primary" className="w-100 auto mt-3">
+          <Button variant="primary" className="w-100 auto my-3">
             Change email or password
           </Button>
         </Link>
