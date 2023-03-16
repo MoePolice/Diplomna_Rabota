@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
+import { Form, Button, Alert } from "react-bootstrap";
+import { useAuth } from "../contexts/AuthContext";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import { db } from "../firebase";
-import { Form, Button, Alert } from "react-bootstrap";
-import { useAuth } from "../contexts/AuthContext";
 
 export default function ContactForm() {
   const emailRef = useRef();
@@ -15,8 +15,8 @@ export default function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const email = e.target.elements.email.value;
-    const message = e.target.elements.message.value;
+    const email = emailRef.current.value;
+    const message = messageRef.current.value;
     db.collection("emails")
       .add({
         email: email,
@@ -24,10 +24,10 @@ export default function ContactForm() {
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then(() => {
-        alert("Your message has been sent!");
+        setMessage("Your message has been sent!");
       })
       .catch((error) => {
-        alert("Oops, something went wrong. Please try again later.");
+        setError("Oops, something went wrong. Please try again later.");
         console.error(error);
       });
   };
