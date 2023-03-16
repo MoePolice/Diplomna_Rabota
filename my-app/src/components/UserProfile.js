@@ -11,6 +11,7 @@ const UserProfile = () => {
   const [bio, setBio] = useState("");
   const [gigs, setGigs] = useState([]);
   const [showGigs, setShowGigs] = useState(false);
+  const [isFreelancer, setIsFreelancer] = useState(false);
 
   const currentUser = firebase.auth().currentUser;
 
@@ -28,9 +29,8 @@ const UserProfile = () => {
           setUser(userDoc.data());
           setDisplayName(userDoc.data().displayName);
           setBio(userDoc.data().bio);
-          console.log("User data retrieved: ", userDoc.data());
+          setIsFreelancer(userDoc.data().userType === "freelancer");
         } else {
-          console.log("User does not exist in the database.");
         }
 
         const gigsRef = db
@@ -130,7 +130,7 @@ const UserProfile = () => {
           Update Profile
         </Button>
         <hr />
-        {user && user.freelancerId && (
+        {isFreelancer && (
           <>
             <h3>My Gigs</h3>
             <Button className="w-100 auto mt-3" onClick={handleToggleGigs}>
@@ -151,10 +151,10 @@ const UserProfile = () => {
                   })}
               </ListGroup>
             )}
-            <CreateGigForm />
           </>
         )}
       </Form>
+      {isFreelancer && <CreateGigForm />}
     </Container>
   );
 };
