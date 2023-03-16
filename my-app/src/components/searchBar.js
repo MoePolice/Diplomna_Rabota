@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = () => {
   const [query, setQuery] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    onSearch(query);
+    try {
+      const response = await fetch(`/api/search?q=${query}`);
+      const results = await response.json();
+      console.log(results);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className="d-flex">
-      <Form onSubmit={handleSubmit} inline>
+      <Form>
         <Form.Control
           type="text"
           placeholder="Search for services"
@@ -20,7 +26,7 @@ const SearchBar = ({ onSearch }) => {
           className="mr-sm-2"
         />
       </Form>
-      <Button type="submit" variant="outline-success" onClick={handleSubmit}>
+      <Button type="submit" variant="outline-success" onClick={handleSearch}>
         Search
       </Button>
     </div>

@@ -62,17 +62,34 @@ function MainPage() {
     });
 
     return unsubscribe;
-  }, [auth]);
+  }, [auth.onAuthStateChanged]);
 
   const handleSearch = async (e) => {
+    console.log(searchQuery);
+    return new Promise(async (resolve, reject) => {
+      try {
+        const results = await db
+          .collectionGroup("gigs")
+          .where("title", ">=", searchQuery)
+          .where("title", "<=", searchQuery + "\uf8ff")
+          .get();
+        setSearchResults(
+          results.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+        resolve();
+      } catch (error) {
+        console.log("Error searching gigs:", error);
+        setSearchResults([]);
+        reject(error);
+      }
+    });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const results = await searchGigs(searchQuery);
-      setSearchResults(results);
-    } catch (error) {
-      console.log("Error searching gigs:", error);
-      setSearchResults([]);
-    }
+    handleSearch()
+      .then(() => {})
+      .catch((error) => {});
   };
 
   if (isLoading) {
@@ -94,13 +111,9 @@ function MainPage() {
             <Nav className="mr-auto">
               <Nav.Link href="/">Home</Nav.Link>
             </Nav>
-            <Form inline className="d-flex">
-              <SearchBar
-                searchText={searchText}
-                setSearchText={setSearchText}
-              />
-              {/* <SearchGigs searchResults={searchResults} /> */}
-            </Form>
+            <SearchBar handleSearch={handleSubmit} />
+
+            {/* <SearchGigs gigs={searchResults} /> */}
             <Nav className="d-flex justify-content-end">
               {userType === null ? (
                 <>

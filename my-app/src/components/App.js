@@ -49,23 +49,6 @@ function App() {
             }
           />
           <Route
-            path="/signup/client"
-            element={
-              <RouteWrapper>
-                <ClientOrFreelancer userType="client" />
-              </RouteWrapper>
-            }
-          />
-          <Route
-            path="/signup/freelancer"
-            element={
-              <RouteWrapper>
-                <ClientOrFreelancer userType="freelancer" />
-              </RouteWrapper>
-            }
-          />
-
-          <Route
             path="/client-or-freelancer"
             element={
               <RouteWrapper>

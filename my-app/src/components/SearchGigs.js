@@ -1,29 +1,46 @@
 import React from "react";
-import { firestore } from "../firebase";
+import { ListGroup } from "react-bootstrap";
+import { db } from "../firebase";
 
-const SearchGigs = async (query) => {
-  const snapshot = await firestore
-    .collection("freelancers")
-    .where("gigs", ">=", query)
-    .where("gigs", "<=", query + "\uf8ff")
-    .get();
+const SearchGigs = ({ gigs }) => {
+  if (gigs.length === 0) {
+    return null;
+  }
 
-  const gigs = [];
-  snapshot.forEach((doc) => {
-    const freelancer = doc.data();
-    freelancer.gigs.forEach((gig) => {
-      if (gig.toLowerCase().includes(query.toLowerCase())) {
-        gigs.push({
-          id: doc.id,
-          title: gig,
-          description: freelancer.description,
-          image: freelancer.image,
-        });
-      }
+  return (
+    <ListGroup>
+      {gigs.map((gig) => (
+        <ListGroup.Item key={gig.id}>{gig.title}</ListGroup.Item>
+      ))}
+    </ListGroup>
+  );
+};
+
+const searchGigs = async (query) => {
+  const freelancersRef = db.collection("freelancers");
+  const freelancers = await freelancersRef.get();
+
+  const results = [];
+
+  freelancers.forEach(async (doc) => {
+    const gigsRef = freelancersRef.doc(doc.id).collection("gigs");
+    const snapshot = await gigsRef.where("title", "==", query).get();
+
+    snapshot.forEach((gigDoc) => {
+      const gigData = gigDoc.data();
+      results.push({
+        id: gigDoc.id,
+        title: gigData.title,
+        description: gigData.description,
+        category: gigData.category,
+        price: gigData.price,
+        userId: doc.id,
+      });
     });
   });
 
-  return gigs;
+  return results;
 };
 
+export { searchGigs };
 export default SearchGigs;

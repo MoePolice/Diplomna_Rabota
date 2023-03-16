@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { firebase, db } from "../firebase";
 import { Container, Form, Button, ListGroup } from "react-bootstrap";
 import CreateGigForm from "./CreateGigForm";
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -130,27 +130,31 @@ const UserProfile = () => {
           Update Profile
         </Button>
         <hr />
-        <h3>My Gigs</h3>
-        <Button className="w-100 auto mt-3" onClick={handleToggleGigs}>
-          {showGigs ? "Hide My Gigs" : "Show My Gigs"}
-        </Button>
-        {showGigs && (
-          <ListGroup>
-            {gigs &&
-              gigs.map((gig) => {
-                return (
-                  <ListGroup.Item key={gig.id}>
-                    <h5>{gig.name}</h5>
-                    <p>Price: ${gig.price}</p>
-                    <p>Description: {gig.description}</p>
-                    <p>Deadline: {gig.deadline}</p>
-                  </ListGroup.Item>
-                );
-              })}
-          </ListGroup>
+        {user && user.freelancerId && (
+          <>
+            <h3>My Gigs</h3>
+            <Button className="w-100 auto mt-3" onClick={handleToggleGigs}>
+              {showGigs ? "Hide My Gigs" : "Show My Gigs"}
+            </Button>
+            {showGigs && (
+              <ListGroup>
+                {gigs &&
+                  gigs.map((gig) => {
+                    return (
+                      <ListGroup.Item key={gig.id}>
+                        <h5>{gig.name}</h5>
+                        <p>Price: ${gig.price}</p>
+                        <p>Description: {gig.description}</p>
+                        <p>Deadline: {gig.deadline}</p>
+                      </ListGroup.Item>
+                    );
+                  })}
+              </ListGroup>
+            )}
+            <CreateGigForm />
+          </>
         )}
       </Form>
-      <CreateGigForm />
     </Container>
   );
 };
