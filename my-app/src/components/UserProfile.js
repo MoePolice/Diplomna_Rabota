@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { firebase, db } from "../firebase";
 import { Container, Form, Button, ListGroup } from "react-bootstrap";
 import CreateGigForm from "./CreateGigForm";
@@ -129,6 +130,11 @@ const UserProfile = () => {
         <Button className="w-100 auto mt-3" onClick={handleUpdateProfile}>
           Update Profile
         </Button>
+        <Link to="/dashboard">
+          <Button variant="primary" className="w-100 auto mt-3">
+            Change email or password
+          </Button>
+        </Link>
         <hr />
         {isFreelancer && (
           <>
